@@ -164,7 +164,8 @@ export default class Peer {
 
   public toggleLocalAudioMute = () => {
     this.mediaModel.isAudioMuted = !this.mediaModel.isAudioMuted;
-    this.mediaModel.stream!.getAudioTracks()[0].enabled = this.mediaModel.isAudioMuted;
+    this.mediaModel.stream!.getAudioTracks()[0].enabled = !this.mediaModel
+      .isAudioMuted;
     this.delegate.OnMediaStatusUpdated(this.Id(), this.mediaModel);
   };
 
