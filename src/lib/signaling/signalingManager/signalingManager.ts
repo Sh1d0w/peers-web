@@ -39,7 +39,7 @@ export default class SignalingManager {
       this.delegate?.onRemoteMediaStatusUpdated(evt)
     );
     this.socket?.on("call", (evt: CreateOfferMessage) => {
-      this.delegate?.onCall(evt.data.ids);
+      this.delegate?.onCall(evt.data.users);
     });
   };
 

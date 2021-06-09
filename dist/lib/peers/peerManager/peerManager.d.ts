@@ -12,7 +12,10 @@ export default class PeerManager {
     setupLocalStream: (stream: MediaStream) => void;
     peerDelegate?: PeerDelegate;
     createLocalClient: (id: string, userId: string) => void;
-    handleCall: (ids: string[], userId: string) => Promise<void>;
+    handleCall: (users: Array<{
+        id: string;
+        userId: string;
+    }>) => Promise<void>;
     handleRemoteOffer: (message: SignalingMessage) => void;
     handleRemoteAnswer: (message: SignalingMessage) => void;
     handleRemoteCandidate: (message: CandidateMessage) => void;

@@ -40,7 +40,7 @@ export default class SignalingEventManger implements SignalingDelegate {
     this.peerManager.handleRemoteMediaUpdated(message);
   }
 
-  onCall = (ids: string[]) => {
-    this.peerManager.handleCall(ids, this.userId);
+  onCall = (users: Array<{ id: string; userId: string }>) => {
+    this.peerManager.handleCall(users);
   };
 }

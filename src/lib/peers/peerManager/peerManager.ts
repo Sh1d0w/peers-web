@@ -45,13 +45,13 @@ export default class PeerManager {
     this.peers.push(peer);
   };
 
-  public handleCall = async (ids: string[], userId: string) => {
-    Logger.logger().info("peerManger", "handle call", ids);
-    ids.forEach(async (id) => {
+  public handleCall = async (users: Array<{ id: string; userId: string }>) => {
+    Logger.logger().info("peerManger", "handle call", users);
+    users.forEach(async (user) => {
       const peer = new Peer(
-        id,
+        user.id,
         false,
-        userId,
+        user.userId,
         this.iceServers,
         this.peerDelegate!
       );

@@ -11,5 +11,8 @@ export default class SignalingEventManger implements SignalingDelegate {
     onRemoteCandidate(message: CandidateMessage): void;
     onRemoteDisconnected(id: string): void;
     onRemoteMediaStatusUpdated(message: MediaStatusMessage): void;
-    onCall: (ids: string[]) => void;
+    onCall: (users: Array<{
+        id: string;
+        userId: string;
+    }>) => void;
 }
