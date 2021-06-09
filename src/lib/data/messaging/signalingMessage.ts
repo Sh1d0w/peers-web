@@ -12,6 +12,7 @@ interface Transaction {
 interface SignalingMessage {
   data: {
     id: Transaction;
+    userId: string;
     sdp: string;
   };
 }
@@ -19,6 +20,7 @@ interface SignalingMessage {
 interface CandidateMessage {
   data: {
     id: Transaction;
+    userId: string;
     candidate: string;
   };
 }
@@ -26,12 +28,14 @@ interface CandidateMessage {
 interface RoomInfoMessage {
   data: {
     roomId: string;
+    userId: string;
   };
 }
 
 interface MediaStatusMessage {
   data: {
     id: string;
+    userId: string;
     isAudioMute: boolean;
     isVideoMute: boolean;
   };

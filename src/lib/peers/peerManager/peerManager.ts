@@ -10,6 +10,12 @@ import PeerDelegate from "#/lib/peers/peer/peerDelegate";
 export default class PeerManager {
   private peers: Peer[] = [];
 
+  private iceServers: RTCIceServer[] | undefined;
+
+  constructor(iceServers: RTCIceServer[] | undefined) {
+    this.iceServers = iceServers;
+  }
+
   public Peers() {
     return this.peers;
   }
@@ -27,16 +33,28 @@ export default class PeerManager {
 
   peerDelegate?: PeerDelegate;
 
-  public createLocalClient = (id: string) => {
+  public createLocalClient = (id: string, userId: string) => {
     Logger.logger().info("peerManager", "create local client");
-    const peer = new Peer(id, true, this.peerDelegate!);
+    const peer = new Peer(
+      id,
+      true,
+      userId,
+      this.iceServers,
+      this.peerDelegate!
+    );
     this.peers.push(peer);
   };
 
-  public handleCall = async (ids: string[]) => {
+  public handleCall = async (ids: string[], userId: string) => {
     Logger.logger().info("peerManger", "handle call", ids);
     ids.forEach(async (id) => {
-      const peer = new Peer(id, false, this.peerDelegate!);
+      const peer = new Peer(
+        id,
+        false,
+        userId,
+        this.iceServers,
+        this.peerDelegate!
+      );
       this.peers.push(peer);
       peer.addLocalStream(this.localStream!);
       await peer.createOfferAsync();
@@ -50,7 +68,13 @@ export default class PeerManager {
       sdp: message.data.sdp,
     };
 
-    const peer = new Peer(message.data.id.origin, false, this.peerDelegate!);
+    const peer = new Peer(
+      message.data.id.origin,
+      false,
+      message.data.userId,
+      this.iceServers,
+      this.peerDelegate!
+    );
     this.peers.push(peer);
     peer.addLocalStream(this.localStream!);
     peer.setRemoteSdpAsync(sdpInit);

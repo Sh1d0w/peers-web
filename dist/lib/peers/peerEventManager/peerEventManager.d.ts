@@ -5,7 +5,8 @@ import RtcMediaModel from "#/lib/data/mediaModel/rtcMeidaModel";
 export default class PeerEventManager implements PeerDelegate {
     private peerManager;
     private signalingManger;
-    constructor(peerManager: PeerManager, signalingManger: SignalingManager);
+    private userId;
+    constructor(userId: string, peerManager: PeerManager, signalingManger: SignalingManager);
     OnSdpCreated: (id: string, sdp: RTCSessionDescription) => void;
     OnCandidateCreated: (id: string, candidate: RTCIceCandidate | null) => void;
     OnAddTrack: (id: string, trackEvent: RTCTrackEvent) => void;

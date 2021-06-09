@@ -27,14 +27,18 @@ export default class Peers {
 
   public setLogLevel = (level: LogLevel) => Logger.setup(level);
 
-  constructor() {
-    this.peerManager = new PeerManager();
+  constructor(userId: string, iceServers: RTCIceServer[] | undefined) {
+    this.peerManager = new PeerManager(iceServers);
     this.signalingManager = new SignalingManager();
     this.peerEventManager = new PeerEventManager(
+      userId,
       this.peerManager,
       this.signalingManager
     );
-    this.signalingEventManager = new SignalingEventManger(this.peerManager);
+    this.signalingEventManager = new SignalingEventManger(
+      userId,
+      this.peerManager
+    );
     this.peerManager.peerDelegate = this.peerEventManager;
     this.signalingManager.delegate = this.signalingEventManager;
   }
@@ -55,10 +59,11 @@ export default class Peers {
     this.peerManager.setupLocalStream(stream);
   };
 
-  public joinRoom = (roomId: string) => {
+  public joinRoom = (roomId: string, userId: string) => {
     const roomInfo: RoomInfoMessage = {
       data: {
         roomId,
+        userId,
       },
     };
     this.signalingManager.socket?.emit(

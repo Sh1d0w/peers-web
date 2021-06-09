@@ -3,7 +3,8 @@ import SignalingDelegate from "../signalingManager/signalingDelegate";
 import { SignalingMessage, CandidateMessage, MediaStatusMessage } from "#/lib/data/messaging/signalingMessage";
 export default class SignalingEventManger implements SignalingDelegate {
     private peerManager;
-    constructor(peerManager: PeerManager);
+    private userId;
+    constructor(userId: string, peerManager: PeerManager);
     onConnected(id: string): void;
     onRemoteOffer(message: SignalingMessage): void;
     onRemoteAnswer(message: SignalingMessage): void;

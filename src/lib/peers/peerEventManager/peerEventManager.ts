@@ -14,7 +14,14 @@ export default class PeerEventManager implements PeerDelegate {
 
   private signalingManger: SignalingManager;
 
-  constructor(peerManager: PeerManager, signalingManger: SignalingManager) {
+  private userId: string;
+
+  constructor(
+    userId: string,
+    peerManager: PeerManager,
+    signalingManger: SignalingManager
+  ) {
+    this.userId = userId;
     this.peerManager = peerManager;
     this.signalingManger = signalingManger;
   }
@@ -29,6 +36,7 @@ export default class PeerEventManager implements PeerDelegate {
           origin: this.signalingManger.socket?.id!,
           destination: id,
         },
+        userId: this.userId,
         sdp: sdp.sdp,
       },
     };
@@ -48,6 +56,7 @@ export default class PeerEventManager implements PeerDelegate {
           origin: this.signalingManger.socket?.id!,
           destination: id,
         },
+        userId: this.userId,
         candidate: candidate!.toJSON() as string,
       },
     };
@@ -68,6 +77,7 @@ export default class PeerEventManager implements PeerDelegate {
           id: this.signalingManger.socket.id,
           isAudioMute: mediaModel.isAudioMuted,
           isVideoMute: mediaModel.isVideoMuted,
+          userId: this.userId,
         },
       };
       this.signalingManger.socket.emit("mediaUpdated", mediaMessage);

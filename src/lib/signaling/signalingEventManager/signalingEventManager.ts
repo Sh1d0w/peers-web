@@ -9,12 +9,15 @@ import {
 export default class SignalingEventManger implements SignalingDelegate {
   private peerManager: PeerManager;
 
-  constructor(peerManager: PeerManager) {
+  private userId: string;
+
+  constructor(userId: string, peerManager: PeerManager) {
     this.peerManager = peerManager;
+    this.userId = userId;
   }
 
   onConnected(id: string): void {
-    this.peerManager.createLocalClient(id);
+    this.peerManager.createLocalClient(id, this.userId);
   }
 
   onRemoteOffer(message: SignalingMessage): void {
@@ -38,6 +41,6 @@ export default class SignalingEventManger implements SignalingDelegate {
   }
 
   onCall = (ids: string[]) => {
-    this.peerManager.handleCall(ids);
+    this.peerManager.handleCall(ids, this.userId);
   };
 }

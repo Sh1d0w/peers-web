@@ -20,15 +20,24 @@ export default class Peer {
 
   private localStream: MediaStream | null = null;
 
-  constructor(id: string, isLocal: boolean, delegate: PeerDelegate) {
+  private iceServers: RTCIceServer[] | undefined;
+
+  constructor(
+    id: string,
+    isLocal: boolean,
+    userId: string,
+    iceServers: RTCIceServer[] | undefined,
+    delegate: PeerDelegate
+  ) {
     this.delegate = delegate;
-    this.mediaModel = new RtcMediaModel(id, isLocal, false, false);
+    this.iceServers = iceServers;
+    this.mediaModel = new RtcMediaModel(id, isLocal, false, false, userId);
     this.peerConnection = this.settupPeerConntection();
   }
 
   private settupPeerConntection = () => {
     const pcConfig: RTCConfiguration = {
-      iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+      iceServers: this.iceServers,
     };
 
     const pc = new RTCPeerConnection(pcConfig);
@@ -38,7 +47,8 @@ export default class Peer {
         this.mediaModel.id,
         this.mediaModel.isLocal,
         this.mediaModel.isAudioMuted,
-        this.mediaModel.isVideoMuted
+        this.mediaModel.isVideoMuted,
+        this.mediaModel.userId
       );
       model.stream = stream;
       this.mediaModel = model;

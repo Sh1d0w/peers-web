@@ -9,7 +9,8 @@ export default class Peer {
     private mediaModel;
     private rtpSender;
     private localStream;
-    constructor(id: string, isLocal: boolean, delegate: PeerDelegate);
+    private iceServers;
+    constructor(id: string, isLocal: boolean, userId: string, iceServers: RTCIceServer[] | undefined, delegate: PeerDelegate);
     private settupPeerConntection;
     addLocalStream: (stream: MediaStream) => void;
     createOfferAsync: () => Promise<void>;

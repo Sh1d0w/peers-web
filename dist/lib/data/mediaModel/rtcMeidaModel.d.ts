@@ -4,5 +4,6 @@ export default class RtcMediaModel {
     id: string;
     isAudioMuted: boolean;
     isVideoMuted: boolean;
-    constructor(id: string, isLocal: boolean, isAudioMuted: boolean, isVideoMuted: boolean);
+    userId: string | null;
+    constructor(id: string, isLocal: boolean, isAudioMuted: boolean, isVideoMuted: boolean, userId: string | null);
 }

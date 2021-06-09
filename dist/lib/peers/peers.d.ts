@@ -9,11 +9,11 @@ export default class Peers {
     MediaModels(): import("../data/mediaModel/rtcMeidaModel").default[];
     LocalStream: () => MediaStream | null;
     setLogLevel: (level: LogLevel) => void;
-    constructor();
+    constructor(userId: string, iceServers: RTCIceServer[] | undefined);
     setupConnection(uri: string): void;
     destroy: () => void;
     addLocalStream: (stream: MediaStream) => void;
-    joinRoom: (roomId: string) => void;
+    joinRoom: (roomId: string, userId: string) => void;
     toggleLocalAudioMute: () => void | undefined;
     toggleLocalVideoMute: () => void | undefined;
 }
