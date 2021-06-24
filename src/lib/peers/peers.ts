@@ -90,4 +90,16 @@ export default class Peers {
 
   public toggleLocalVideoMute = () =>
     this.peerManager.LocalClient()?.tollgleLocalVideoMute();
+
+  public enableLocalAudio = () =>
+    this.peerManager.LocalClient()?.enableLocalAudio();
+
+  public disableLocalAudio = () =>
+    this.peerManager.LocalClient()?.disableLocalAudio();
+
+  public enableLocalVideo = () =>
+    this.peerManager.LocalClient()?.enableLocalVideo();
+
+  public disableLocalVideo = () =>
+    this.peerManager.LocalClient()?.disableLocalVideo();
 }

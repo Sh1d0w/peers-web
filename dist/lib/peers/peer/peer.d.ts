@@ -23,5 +23,9 @@ export default class Peer {
     onRemtoeAudioUnmuted(): void;
     onRemoteMediaStatusUpdated: (message: MediaStatusMessage) => void;
     toggleLocalAudioMute: () => void;
+    enableLocalAudio: () => void;
+    disableLocalAudio: () => void;
     tollgleLocalVideoMute: () => void;
+    enableLocalVideo: () => void;
+    disableLocalVideo: () => void;
 }

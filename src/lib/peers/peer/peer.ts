@@ -169,10 +169,34 @@ export default class Peer {
     this.delegate.OnMediaStatusUpdated(this.Id(), this.mediaModel);
   };
 
+  public enableLocalAudio = () => {
+    this.mediaModel.isAudioMuted = false;
+    this.mediaModel.stream!.getAudioTracks()[0].enabled = true;
+    this.delegate.OnMediaStatusUpdated(this.Id(), this.mediaModel);
+  };
+
+  public disableLocalAudio = () => {
+    this.mediaModel.isAudioMuted = true;
+    this.mediaModel.stream!.getAudioTracks()[0].enabled = false;
+    this.delegate.OnMediaStatusUpdated(this.Id(), this.mediaModel);
+  };
+
   public tollgleLocalVideoMute = () => {
     this.mediaModel.isVideoMuted = !this.mediaModel.isVideoMuted;
     this.mediaModel.stream!.getVideoTracks()[0].enabled = !this.mediaModel
       .isVideoMuted;
+    this.delegate.OnMediaStatusUpdated(this.Id(), this.mediaModel);
+  };
+
+  public enableLocalVideo = () => {
+    this.mediaModel.isVideoMuted = false;
+    this.mediaModel.stream!.getVideoTracks()[0].enabled = true;
+    this.delegate.OnMediaStatusUpdated(this.Id(), this.mediaModel);
+  };
+
+  public disableLocalVideo = () => {
+    this.mediaModel.isVideoMuted = true;
+    this.mediaModel.stream!.getVideoTracks()[0].enabled = false;
     this.delegate.OnMediaStatusUpdated(this.Id(), this.mediaModel);
   };
 }

@@ -16,4 +16,8 @@ export default class Peers {
     joinRoom: (roomId: string, userId: string) => void;
     toggleLocalAudioMute: () => void | undefined;
     toggleLocalVideoMute: () => void | undefined;
+    enableLocalAudio: () => void | undefined;
+    disableLocalAudio: () => void | undefined;
+    enableLocalVideo: () => void | undefined;
+    disableLocalVideo: () => void | undefined;
 }
